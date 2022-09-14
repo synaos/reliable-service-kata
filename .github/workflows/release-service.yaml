@@ -29,3 +29,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.os }}
           goarch: ${{ matrix.arch }}
+          compress_assets: FALSE
+          md5sum: FALSE
