@@ -1,0 +1,27 @@
+on:
+  release:
+    types: [created]
+
+jobs:
+  release-linux-amd64:
+    strategy:
+      matrix:
+        include:
+          - os: linux
+            arch: amd64
+          - os: windows
+            arch: amd64
+          - os: darwin
+            arch: amd64
+          - os: darwin
+            arch: arm64
+
+    name: Release service
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1.31
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.os }}
+          goarch: ${{ matrix.arch }}
