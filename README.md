@@ -10,7 +10,7 @@ Development kata to provide a reliable way of operating a service.
 
 ## Frame conditions
 
-1. You have exact 2 hours of time - no minute longer.
+1. You have exact 2.5 hours of time - no minute longer.
 
    If you reach this time limit stop your work immediately.
    It is one part of the kata to respect this time limit. 🙂
