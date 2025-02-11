@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kata-app
+  namespace: kata-app
+  labels:
+    app: kata-app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: kata-app
+  template:
+    metadata:
+      labels:
+        app: kata-app
+    spec:
+      containers:
+      - name: kata-app
+        image: kata-app:demo
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        env:
+        - name: KATA_SERVICE_ADDRESS
+          value: "0.0.0.0:8000"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
